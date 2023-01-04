@@ -1,6 +1,0 @@
-C:/Study/qtApp/qt_xbox/build/CMakeFiles/qt_xbox.dir
-C:/Study/qtApp/qt_xbox/build/CMakeFiles/INSTALL.dir
-C:/Study/qtApp/qt_xbox/build/CMakeFiles/ALL_BUILD.dir
-C:/Study/qtApp/qt_xbox/build/CMakeFiles/ZERO_CHECK.dir
-C:/Study/qtApp/qt_xbox/build/test_lib/CMakeFiles/test_lib.dir
-C:/Study/qtApp/qt_xbox/build/test_lib/CMakeFiles/INSTALL.dir

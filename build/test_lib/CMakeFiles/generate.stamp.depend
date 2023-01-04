@@ -1,7 +1,0 @@
-# CMake generation dependency list for this directory.
-C:/Qt/5.12.11/msvc2017_64/lib/cmake/Qt5/Qt5Config.cmake
-C:/Qt/5.12.11/msvc2017_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake
-C:/Qt/5.12.11/msvc2017_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake
-C:/Qt/5.12.11/msvc2017_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake
-C:/Qt/5.12.11/msvc2017_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake
-C:/Study/qtApp/qt_xbox/test_lib/CMakeLists.txt
