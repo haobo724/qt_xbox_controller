@@ -18,8 +18,9 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         gamepad_thread.h gamepad_thread.cpp
+        record.h record.cpp
 )
-
+add_subdirectory(test_lib)
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(qt_xbox
         MANUAL_FINALIZATION
@@ -61,3 +62,5 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(qt_xbox)
 endif()
 target_link_libraries(${PROJECT_NAME} PUBLIC Xinput.lib Xinput9_1_0.lib)
+target_link_libraries(${PROJECT_NAME} PUBLIC test_lib)
+
