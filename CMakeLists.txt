@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
         mainwindow.ui
         gamepad_thread.h gamepad_thread.cpp
         record.h record.cpp
+        icons.qrc
 )
 add_subdirectory(test_lib)
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

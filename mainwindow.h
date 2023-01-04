@@ -22,7 +22,8 @@ private:
     Ui::MainWindow *ui;
     Gamepad_Thread *gamepad;
     Record *logWriter;
-
+    int slider2colorspace(float value);
+    void updateColor();
 signals:
     void send_data2slider(float value);
     void send_data2slider_2(float value);

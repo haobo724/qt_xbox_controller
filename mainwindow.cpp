@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     gamepad = new Gamepad_Thread();
     logWriter = new Record();
     logWriter->start();
+    // color block
+    updateColor();
 
     qRegisterMetaType<Xbox_info>("Xbox_info");//注册一种信号的参数类型
     connect(gamepad, SIGNAL(JoySignal_row(Xbox_info)), this, SLOT(display_slot_row(Xbox_info)));
@@ -35,19 +37,32 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete gamepad;
+    delete logWriter;
+}
+
+int MainWindow::slider2colorspace(float value)
+{
+    int color_channel = 255*((value + 100)/200);
+    return color_channel;
+}
+
+void MainWindow::updateColor()
+{
+    QString red = QString::number(slider2colorspace(ui->horizontalSlider->value()));
+    QString green = QString::number(slider2colorspace(ui->horizontalSlider_2->value()));
+    QString blue = QString::number(slider2colorspace(ui->horizontalSlider_3->value()));
+    QString style ="background-color: rgb("+red+", "+green+", "+blue+");";
+    ui->lb_color->setStyleSheet(style);
 }
 
 void MainWindow::display_slot_row(Xbox_info state_row)
 {
-
-
-
     float data_triggerL = state_row.leftTrigger;
     float data_triggerR = state_row.rightTrigger;
     float data_trigger = -data_triggerL+data_triggerR;
     float data_float1 = state_row.leftStickX;
     float data_float2 = state_row.rightStickX;
-
 
     emit send_data2slider(data_float1);
     emit send_data2slider_2(data_float2);
@@ -62,7 +77,8 @@ void MainWindow::on_horizontalSlider_valueChanged(float value)
     ui->horizontalSlider->setValue(current_value);
     QString data = QString("%1").arg(current_value);
     ui->label->setText(data);
-
+    // color block
+    updateColor();
     // log block
     QString movedValue= QString("%1").arg(value);
     data = "LeftStick moved on X: " + movedValue+" , now at:"
@@ -77,7 +93,8 @@ void MainWindow::on_horizontalSlider_2_valueChanged(float value)
     ui->horizontalSlider_2->setValue(current_value);
     QString data = QString("%1").arg(current_value);
     ui->label_2->setText(data);
-
+    // color block
+    updateColor();
     // log block
     QString movedValue= QString("%1").arg(value);
     data = "RightStick moved on X: " + movedValue+" , now at:"
@@ -92,7 +109,8 @@ void MainWindow::on_horizontalSlider_3_valueChanged(float value)
     ui->horizontalSlider_3->setValue(current_value);
     QString data = QString("%1").arg(current_value);
     ui->label_3->setText(data);
-
+    // color block
+    updateColor();
     // log block
     QString movedValue= QString("%1").arg(value);
     data = "Trigger moved:" + movedValue+" , now at: "

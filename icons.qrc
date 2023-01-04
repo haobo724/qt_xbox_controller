@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/caret-down.svg</file>
+        <file>icons/caret-up.svg</file>
+    </qresource>
+</RCC>
