@@ -81,8 +81,8 @@ void MainWindow::on_horizontalSlider_valueChanged(float value)
     updateColor();
     // log block
     QString movedValue= QString("%1").arg(value);
-    data = "LeftStick moved on X: " + movedValue+" , now at:"
-            + data;
+    data = "LeftStick moved on X: " + movedValue+" , Now at Positon: "
+            + data+" | ";
     logWriter->addText(data.toStdString());
 
 }
@@ -97,8 +97,8 @@ void MainWindow::on_horizontalSlider_2_valueChanged(float value)
     updateColor();
     // log block
     QString movedValue= QString("%1").arg(value);
-    data = "RightStick moved on X: " + movedValue+" , now at:"
-            + data;
+    data = "RightStick moved on X: " + movedValue+" , Now at Positon: "
+            + data+" | ";
     logWriter->addText(data.toStdString());
 
 }
@@ -113,8 +113,8 @@ void MainWindow::on_horizontalSlider_3_valueChanged(float value)
     updateColor();
     // log block
     QString movedValue= QString("%1").arg(value);
-    data = "Trigger moved:" + movedValue+" , now at: "
-            + data;
+    data = "Trigger moved:" + movedValue+" , Now at Positon: "
+            + data +" | ";
     logWriter->addText(data.toStdString());
 
 

@@ -346,6 +346,9 @@
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_8">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Age</string>
        </property>
@@ -360,6 +363,9 @@
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_11">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>Date of Birth</string>
        </property>
