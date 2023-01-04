@@ -5,16 +5,15 @@
 #include <Windows.h>
 #include <Xinput.h>
 #include <QThread>
-
 using std::cout;
 using std::endl;
 
-struct Xbox_info{    float leftStickX;
-                     float leftStickY;
-                     float rightStickX;
-                     float rightStickY;
-                     float leftTrigger;
-                     float rightTrigger;};
+struct Xbox_info{    float leftStickX =0 ;
+                     float leftStickY=0;
+                     float rightStickX=0;
+                     float rightStickY=0;
+                     float leftTrigger=0;
+                     float rightTrigger=0;};
 
 
 class Gamepad_Thread : public QThread
@@ -46,7 +45,6 @@ public:
     bool Refresh();
     bool IsPressed(WORD);
     bool IsPressedTrigger(BYTE);
-
 signals:
     void JoySignal_row(Xbox_info); //test
 

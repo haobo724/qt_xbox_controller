@@ -121,7 +121,18 @@ void Gamepad_Thread::run()
             state_row.rightStickY = rightStickY;
             state_row.leftTrigger = leftTrigger;
             state_row.rightTrigger = rightTrigger;
-            send_state_row(state_row);
+            Xbox_info* P_Member = &state_row;		//指向结构体的指针
+            float i, * P;
+            P = &P_Member->leftStickX;		//int类型的指针P指向结构体的第一个成员
+                for (i = 0; i < sizeof(state_row) / sizeof(float); i++)
+                {
+                    if ((*P++) != 0){
+                        send_state_row(state_row);
+
+                    }
+                }
+
+
 
         }
     }

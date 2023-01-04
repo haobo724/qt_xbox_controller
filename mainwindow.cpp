@@ -19,11 +19,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->label_3->setText( QString::number(ui->horizontalSlider_3->value()));
 
 
-
     gamepad = new Gamepad_Thread();
+    logWriter = new Record();
+    logWriter->start();
 
     qRegisterMetaType<Xbox_info>("Xbox_info");//注册一种信号的参数类型
     connect(gamepad, SIGNAL(JoySignal_row(Xbox_info)), this, SLOT(display_slot_row(Xbox_info)));
+
     connect(this, SIGNAL(send_data2slider(float)), this, SLOT(on_horizontalSlider_valueChanged(float)));
     connect(this, SIGNAL(send_data2slider_2(float)), this, SLOT(on_horizontalSlider_2_valueChanged(float)));
     connect(this, SIGNAL(send_data2slider_3(float)), this, SLOT(on_horizontalSlider_3_valueChanged(float)));
@@ -43,7 +45,6 @@ void MainWindow::display_slot_row(Xbox_info state_row)
     float data_triggerL = state_row.leftTrigger;
     float data_triggerR = state_row.rightTrigger;
     float data_trigger = -data_triggerL+data_triggerR;
-
     float data_float1 = state_row.leftStickX;
     float data_float2 = state_row.rightStickX;
 
@@ -57,29 +58,46 @@ void MainWindow::display_slot_row(Xbox_info state_row)
 
 void MainWindow::on_horizontalSlider_valueChanged(float value)
 {
-    float current_value = ui->horizontalSlider->value();
-    current_value += value;
+    float current_value = ui->horizontalSlider->value()+ value;
     ui->horizontalSlider->setValue(current_value);
     QString data = QString("%1").arg(current_value);
     ui->label->setText(data);
+
+    // log block
+    QString movedValue= QString("%1").arg(value);
+    data = "LeftStick moved on X: " + movedValue+" , now at:"
+            + data;
+    logWriter->addText(data.toStdString());
 
 }
 
 void MainWindow::on_horizontalSlider_2_valueChanged(float value)
 {
-    float current_value = ui->horizontalSlider_2->value();
-    current_value += value;
+    float current_value = ui->horizontalSlider_2->value()+ value;
     ui->horizontalSlider_2->setValue(current_value);
     QString data = QString("%1").arg(current_value);
     ui->label_2->setText(data);
+
+    // log block
+    QString movedValue= QString("%1").arg(value);
+    data = "RightStick moved on X: " + movedValue+" , now at:"
+            + data;
+    logWriter->addText(data.toStdString());
+
 }
 
 void MainWindow::on_horizontalSlider_3_valueChanged(float value)
 {
-    float current_value = ui->horizontalSlider_3->value();
-    current_value += value;
+    float current_value = ui->horizontalSlider_3->value()+ value;
     ui->horizontalSlider_3->setValue(current_value);
     QString data = QString("%1").arg(current_value);
-     ui->label_3->setText(data);
-}
+    ui->label_3->setText(data);
 
+    // log block
+    QString movedValue= QString("%1").arg(value);
+    data = "Trigger moved:" + movedValue+" , now at: "
+            + data;
+    logWriter->addText(data.toStdString());
+
+
+}

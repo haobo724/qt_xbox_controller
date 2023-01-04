@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "gamepad_thread.h"
+#include "record.h"
+#include <string.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -18,6 +21,8 @@ public:
 private:
     Ui::MainWindow *ui;
     Gamepad_Thread *gamepad;
+    Record *logWriter;
+
 signals:
     void send_data2slider(float value);
     void send_data2slider_2(float value);
