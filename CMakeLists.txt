@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
 include(C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
-
 project(qt_xbox VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
@@ -66,4 +65,4 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 target_link_libraries(${PROJECT_NAME} PUBLIC Xinput.lib Xinput9_1_0.lib)
 target_link_libraries(${PROJECT_NAME} PUBLIC test_lib)
-target_link_libraries(${PROJECT_NAME}  PUBLIC ${ITK_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC ITKFFT ITKVTK ITKznz itksys)
