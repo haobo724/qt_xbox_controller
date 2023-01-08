@@ -5,6 +5,7 @@
 #include "gamepad_thread.h"
 #include "record.h"
 #include <string.h>
+#include "itkimage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
