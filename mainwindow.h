@@ -23,6 +23,8 @@ private:
     Ui::MainWindow *ui;
     Gamepad_Thread *gamepad;
     Record *logWriter;
+    using ImageType = itk::Image<unsigned char, 3>;
+    ImageType* image = ImageType::New();
     int slider2colorspace(float value);
     void updateColor();
 signals:
@@ -35,6 +37,8 @@ private slots:
 
 
     void on_horizontalSlider_valueChanged(float value);
+    void on_horizontalSlider_valueChanged( );
+
     void on_horizontalSlider_2_valueChanged(float value);
     void on_horizontalSlider_3_valueChanged(float value);
 };

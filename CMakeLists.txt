@@ -13,19 +13,15 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(ITK REQUIRED)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/test_lib)
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        gamepad_thread.h gamepad_thread.cpp
-        
-        icons.qrc
 )
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 add_subdirectory(test_lib)
+add_subdirectory(qtest)
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(qt_xbox
         MANUAL_FINALIZATION
@@ -66,9 +62,28 @@ install(TARGETS qt_xbox
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(qt_xbox)
 endif()
-add_library(record_lib SHARED record.h record.cpp)
+#--------------------ADD Library-----------------------------------
+add_library(gamepad STATIC gamepad_thread.h gamepad_thread.cpp)
+target_link_libraries(gamepad PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(gamepad PRIVATE Xinput.lib Xinput9_1_0.lib)
+
+add_library(mainwindow STATIC mainwindow.cpp
+mainwindow.h
+mainwindow.ui
+icons.qrc
+)
+target_link_libraries(mainwindow PRIVATE ITKFFT ITKVTK ITKznz itksys)
+target_link_libraries(mainwindow PRIVATE Qt${QT_VERSION_MAJOR}::Widgets gamepad)
+
+add_library(record_lib STATIC record.h record.cpp)
+target_link_libraries(record_lib PRIVATE test_lib)
+target_link_libraries(record_lib PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+
+#--------------------Link Library-----------------------------------
+
 target_link_libraries(${PROJECT_NAME} PUBLIC Xinput.lib Xinput9_1_0.lib)
 target_link_libraries(${PROJECT_NAME} PUBLIC test_lib)
 target_link_libraries(${PROJECT_NAME} PUBLIC record_lib)
-
+target_link_libraries(${PROJECT_NAME} PUBLIC mainwindow)
+target_link_libraries(${PROJECT_NAME} PUBLIC gamepad)
 target_link_libraries(${PROJECT_NAME} PUBLIC ITKFFT ITKVTK ITKznz itksys)

@@ -1,5 +1,4 @@
 #pragma once
-
 #ifdef  TEST_LIB_EXPORTS
 #define TEST_LIBAPI __declspec(dllexport)
 #else
@@ -31,3 +30,4 @@ extern "C" TEST_LIBAPI unsigned long long fibonacci_current();
 
 // Get the position of the current value in the sequence.
 extern "C" TEST_LIBAPI unsigned fibonacci_index();
+TEST_LIBAPI int dummy_input();

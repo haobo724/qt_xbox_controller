@@ -3,9 +3,11 @@
 
 #include<iostream>
 #include<fstream>
+#include<QObject>
 using namespace std ;
-class Record
+class Record:public QObject
 {
+    Q_OBJECT
 private:
     string logFileName = "log_gamePad.txt";
     ofstream of;

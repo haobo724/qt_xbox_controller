@@ -1,4 +1,5 @@
 #include "record.h"
+#include "test.h"
 #include <string>
 #include <iomanip>
 #include <ctime>
@@ -22,6 +23,6 @@ void Record::addText(string text)
     tm tm = *std::localtime(&local_time);
 
     of.open(logFileName,ofstream::app);
-    of<< text<<" "<<put_time(&tm, "%c %z")<< endl<<endl;
+    of<< text<<" "<<put_time(&tm, "%c %z")<<dummy_input() << endl<<endl;
     of.close();
 }

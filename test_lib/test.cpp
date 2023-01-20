@@ -52,3 +52,10 @@ unsigned fibonacci_index()
 {
     return index_;
 }
+
+int dummy_input()
+{
+
+    return 12;
+
+} 
