@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, SIGNAL(send_data2slider(float)), this, SLOT(on_horizontalSlider_valueChanged(float)));
     connect(this, SIGNAL(send_data2slider_2(float)), this, SLOT(on_horizontalSlider_2_valueChanged(float)));
     connect(this, SIGNAL(send_data2slider_3(float)), this, SLOT(on_horizontalSlider_3_valueChanged(float)));
+
     gamepad->start();
 }
 
@@ -137,3 +138,9 @@ void MainWindow::on_horizontalSlider_3_valueChanged(float value)
 
 
 }
+
+void MainWindow::on_pbnCP_clicked()
+{
+    ui->lbCP->setText("hi");
+}
+

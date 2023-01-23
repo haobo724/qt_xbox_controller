@@ -41,5 +41,6 @@ private slots:
 
     void on_horizontalSlider_2_valueChanged(float value);
     void on_horizontalSlider_3_valueChanged(float value);
+    void on_pbnCP_clicked();
 };
 #endif // MAINWINDOW_H

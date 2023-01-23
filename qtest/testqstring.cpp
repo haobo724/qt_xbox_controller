@@ -3,6 +3,8 @@
 #include <iostream>
 #include <QTextStream>
 #include <QDebug>
+#include <QPushButton>
+#include <QLabel>
 
 QTEST_MAIN(TestQString)
 /* After creating QApplication instance */
@@ -10,7 +12,6 @@ QTEST_MAIN(TestQString)
 TestQString::TestQString(QObject *parent)
     : QObject{parent}
 {
-
 }
 
 void TestQString::toUpper()
@@ -20,16 +21,24 @@ void TestQString::toUpper()
 }
 
 void TestQString::testRecoder()
-{   
-	std::cout << "string to print" << endl;
-	std::cout.flush();
-	qDebug() << "C++ Style Debug Message";
+{
+
     Record *test_reco = new Record();
     test_reco->start();
     QFileInfo file("./log_gamePad.txt");
-    QVERIFY(file.isFile()==true);
+    QVERIFY(file.isFile() == true);
 }
+
 void TestQString::testmainwindow()
-{   
-	
+{
+    MainWindow* test_ui = new MainWindow();
+    QPushButton* testBtn = test_ui->findChild<QPushButton*>("pbnCP");
+    QLabel* testlb = test_ui->findChild<QLabel*>("lbCP");
+
+
+    QTest::mouseClick ( testBtn, Qt::LeftButton, Qt::NoModifier);
+    QCOMPARE(testlb->text(), QString("hi"));
+
 }
+#include "testqstring.moc"
+

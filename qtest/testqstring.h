@@ -3,10 +3,7 @@
 
 #include <QObject>
 #include <QTest>
-#include "record.h"
-
-/* In Header */
-
+#include "mainwindow.h"
 
 class TestQString : public QObject
 {
