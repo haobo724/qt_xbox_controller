@@ -31,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, SIGNAL(send_data2slider(float)), this, SLOT(on_horizontalSlider_valueChanged(float)));
     connect(this, SIGNAL(send_data2slider_2(float)), this, SLOT(on_horizontalSlider_2_valueChanged(float)));
     connect(this, SIGNAL(send_data2slider_3(float)), this, SLOT(on_horizontalSlider_3_valueChanged(float)));
+    Camera = new VideoStream();
+    ui->camera_widget->show();
+    Camera->setCamera(ui->camera_widget);
 
     gamepad->start();
 }

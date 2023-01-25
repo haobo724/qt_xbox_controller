@@ -9,12 +9,18 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+set(CMAKE_VS_PLATFORM_NAME_DEFAULT x64)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Multimedia MultimediaWidgets
+)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia MultimediaWidgets
+)
+
+
 find_package(ITK REQUIRED)
+find_package(OpenCV CONFIG REQUIRED)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/test_lib)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/test_lib)
 set(PROJECT_SOURCES
         main.cpp
 )
@@ -45,7 +51,6 @@ else()
     endif()
 endif()
 
-target_link_libraries(qt_xbox PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 set_target_properties(qt_xbox PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -64,26 +69,36 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 #--------------------ADD Library-----------------------------------
 add_library(gamepad STATIC gamepad_thread.h gamepad_thread.cpp)
-target_link_libraries(gamepad PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(gamepad PRIVATE Xinput.lib Xinput9_1_0.lib)
+target_link_libraries(gamepad PUBLIC Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(gamepad PUBLIC Xinput.lib Xinput9_1_0.lib)
+
+add_library(camera STATIC
+videostream.h
+videostream.cpp
+)
+target_link_libraries(camera PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets)
+
 
 add_library(mainwindow STATIC mainwindow.cpp
 mainwindow.h
 mainwindow.ui
 icons.qrc
 )
-target_link_libraries(mainwindow PRIVATE ITKFFT ITKVTK ITKznz itksys)
-target_link_libraries(mainwindow PRIVATE Qt${QT_VERSION_MAJOR}::Widgets gamepad)
+target_link_libraries(mainwindow PUBLIC ITKFFT ITKVTK ITKznz itksys)
+target_link_libraries(mainwindow PUBLIC gamepad)
+target_link_libraries(mainwindow PUBLIC camera)
+target_link_libraries(mainwindow PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets)
 
 add_library(record_lib STATIC record.h record.cpp)
-target_link_libraries(record_lib PRIVATE test_lib)
-target_link_libraries(record_lib PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+target_include_directories(record_lib PUBLIC test_lib)
+target_link_libraries(record_lib PUBLIC test_lib)
+target_link_libraries(record_lib PUBLIC Qt${QT_VERSION_MAJOR}::Core)
 
 #--------------------Link Library-----------------------------------
-
-target_link_libraries(${PROJECT_NAME} PUBLIC Xinput.lib Xinput9_1_0.lib)
+target_link_libraries(${PROJECT_NAME} PUBLIC mainwindow)
 target_link_libraries(${PROJECT_NAME} PUBLIC test_lib)
 target_link_libraries(${PROJECT_NAME} PUBLIC record_lib)
-target_link_libraries(${PROJECT_NAME} PUBLIC mainwindow)
+target_link_libraries(${PROJECT_NAME} PUBLIC camera)
 target_link_libraries(${PROJECT_NAME} PUBLIC gamepad)
-target_link_libraries(${PROJECT_NAME} PUBLIC ITKFFT ITKVTK ITKznz itksys)

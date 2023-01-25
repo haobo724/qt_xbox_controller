@@ -6,7 +6,7 @@
 #include "record.h"
 #include <string.h>
 #include "itkimage.h"
-
+#include "videostream.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -23,6 +23,7 @@ private:
     Ui::MainWindow *ui;
     Gamepad_Thread *gamepad;
     Record *logWriter;
+    VideoStream* Camera;
     using ImageType = itk::Image<unsigned char, 3>;
     ImageType* image = ImageType::New();
     int slider2colorspace(float value);

@@ -23,6 +23,7 @@ target_link_libraries(tutorial1 PUBLIC
     record_lib
     Qt${QT_VERSION_MAJOR}::Test
     Qt${QT_VERSION_MAJOR}::Widgets
-)
+    Qt${QT_VERSION_MAJOR}::MultimediaWidgets)
+
 
 
