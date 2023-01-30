@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "ui_mainwindow.h"
 #include <qDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalSlider_3->setValue(0);
     ui->label_3->setText( QString::number(ui->horizontalSlider_3->value()));
 
-
     gamepad = new Gamepad_Thread();
     logWriter = new Record();
     logWriter->start();
@@ -28,9 +27,13 @@ MainWindow::MainWindow(QWidget *parent)
     qRegisterMetaType<Xbox_info>("Xbox_info");//注册一种信号的参数类型
     connect(gamepad, SIGNAL(JoySignal_row(Xbox_info)), this, SLOT(display_slot_row(Xbox_info)));
 
-    connect(this, SIGNAL(send_data2slider(float)), this, SLOT(on_horizontalSlider_valueChanged(float)));
-    connect(this, SIGNAL(send_data2slider_2(float)), this, SLOT(on_horizontalSlider_2_valueChanged(float)));
-    connect(this, SIGNAL(send_data2slider_3(float)), this, SLOT(on_horizontalSlider_3_valueChanged(float)));
+    connect(this, SIGNAL(send_data2slider(float)), this, SLOT(hs1valuechanged(float)));
+    connect(this, SIGNAL(send_data2slider_2(float)), this, SLOT(hs2valuechanged(float)));
+    connect(this, SIGNAL(send_data2slider_3(float)), this, SLOT(hs3valuechanged(float)));
+    /*
+    QIcon icon =  QIcon("C:/Study/qtApp/qt_xbox/icons/caret-up.svg");
+    ui->pushButton_4->setIcon(icon);
+    */
     Camera = new VideoStream();
     ui->camera_widget->show();
     Camera->setCamera(ui->camera_widget);
@@ -40,9 +43,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    gamepad->requestInterruption();
+    gamepad->quit();
+    gamepad=nullptr;
+    Camera->stopCamera();
+
     delete gamepad;
     delete logWriter;
+    delete Camera;
+    delete ui;
+
 }
 
 int MainWindow::slider2colorspace(float value)
@@ -75,7 +85,7 @@ void MainWindow::display_slot_row(Xbox_info state_row)
 }
 
 
-void MainWindow::on_horizontalSlider_valueChanged(float value)
+void MainWindow::hs1valuechanged(float value)
 {
     float current_value = ui->horizontalSlider->value()+ value;
     ui->horizontalSlider->setValue(current_value);
@@ -109,7 +119,7 @@ void MainWindow::on_horizontalSlider_valueChanged()
 }
 
 
-void MainWindow::on_horizontalSlider_2_valueChanged(float value)
+void MainWindow::hs2valuechanged(float value)
 {
     float current_value = ui->horizontalSlider_2->value()+ value;
     ui->horizontalSlider_2->setValue(current_value);
@@ -125,7 +135,7 @@ void MainWindow::on_horizontalSlider_2_valueChanged(float value)
 
 }
 
-void MainWindow::on_horizontalSlider_3_valueChanged(float value)
+void MainWindow::hs3valuechanged(float value)
 {
     float current_value = ui->horizontalSlider_3->value()+ value;
     ui->horizontalSlider_3->setValue(current_value);
@@ -145,5 +155,13 @@ void MainWindow::on_horizontalSlider_3_valueChanged(float value)
 void MainWindow::on_pbnCP_clicked()
 {
     ui->lbCP->setText("hi");
+}
+
+
+void MainWindow::on_pb_endexam_clicked()
+{
+    bool status = ui->pbnCP->isEnabled();
+    qDebug()<<status;
+    ui->pbnCP->setEnabled(!status);
 }
 

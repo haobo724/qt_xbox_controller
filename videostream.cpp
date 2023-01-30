@@ -34,6 +34,11 @@ VideoStream::VideoStream()
 
 }
 
+VideoStream::~VideoStream()
+{
+this->stopCamera();
+}
+
 void VideoStream::setCamera(QCameraViewfinder *viewfinder)
 {
     const QCameraInfo &cameraInfo = QCameraInfo::defaultCamera();
@@ -52,4 +57,10 @@ void VideoStream::setCamera(QCameraViewfinder *viewfinder)
 
 
     m_camera->start();
+
+}
+
+void VideoStream::stopCamera()
+{
+      m_camera->stop();
 }

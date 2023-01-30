@@ -10,6 +10,7 @@ find_package(ITK REQUIRED)
 add_executable(tutorial1
     testqstring.h
     testqstring.cpp
+    ../icons.qrc
 )
 set_target_properties(tutorial1 PROPERTIES
     WIN32_EXECUTABLE TRUE

@@ -5,24 +5,20 @@ project(qt_xbox VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-set(CMAKE_VS_PLATFORM_NAME_DEFAULT x64)
-
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Multimedia MultimediaWidgets
 )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia MultimediaWidgets
 )
 
-
 find_package(ITK REQUIRED)
 find_package(OpenCV CONFIG REQUIRED)
 
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/test_lib)
 set(PROJECT_SOURCES
         main.cpp
+        icons.qrc
 )
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
@@ -74,8 +70,7 @@ target_link_libraries(gamepad PUBLIC Xinput.lib Xinput9_1_0.lib)
 
 add_library(camera STATIC
 videostream.h
-videostream.cpp
-)
+videostream.cpp)
 target_link_libraries(camera PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets)
 
@@ -83,8 +78,8 @@ target_link_libraries(camera PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
 add_library(mainwindow STATIC mainwindow.cpp
 mainwindow.h
 mainwindow.ui
-icons.qrc
-)
+icons.qrc)
+target_include_directories(mainwindow PUBLIC icons)
 target_link_libraries(mainwindow PUBLIC ITKFFT ITKVTK ITKznz itksys)
 target_link_libraries(mainwindow PUBLIC gamepad)
 target_link_libraries(mainwindow PUBLIC camera)

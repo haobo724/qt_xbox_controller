@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 9.0.1, 2023-01-25T01:55:40. -->
+<!-- Written by QtCreator 9.0.1, 2023-01-30T01:03:53. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -71,6 +71,7 @@
    <valuemap type="QVariantMap" key="AutoTest.CheckStates">
     <value type="Qt::CheckState" key="1@C:/Study/qtApp/qt_xbox/qtest/testqstring.cpp:testRecoder">Checked</value>
     <value type="Qt::CheckState" key="1@C:/Study/qtApp/qt_xbox/qtest/testqstring.cpp:testmainwindow">Checked</value>
+    <value type="Qt::CheckState" key="1@C:/Study/qtApp/qt_xbox/qtest/testqstring.cpp:testtwopb">Checked</value>
     <value type="Qt::CheckState" key="1@C:/Study/qtApp/qt_xbox/qtest/testqstring.cpp:toUpper">Checked</value>
     <value type="Qt::CheckState" key="1@C:/Study/qtApp/qt_xbox/qtest/testqstring.h:TestQString">Checked</value>
    </valuemap>

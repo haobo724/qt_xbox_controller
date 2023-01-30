@@ -13,6 +13,7 @@ class VideoStream : public QCamera
     Q_OBJECT
 public:
     VideoStream();
+    ~VideoStream();
     void setCamera( QCameraViewfinder *viewfinder);
 
     void startCamera();

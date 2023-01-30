@@ -14,7 +14,9 @@ public:
 private slots:
     void toUpper();
     void testRecoder();
+    void testtwopb();
     void testmainwindow();
+
 };
 
 #endif // TESTQSTRING_H

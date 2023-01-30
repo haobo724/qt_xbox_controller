@@ -24,8 +24,8 @@ private:
     Gamepad_Thread *gamepad;
     Record *logWriter;
     VideoStream* Camera;
-    using ImageType = itk::Image<unsigned char, 3>;
-    ImageType* image = ImageType::New();
+    //using ImageType = itk::Image<unsigned char, 3>;
+    //ImageType* image = ImageType::New();
     int slider2colorspace(float value);
     void updateColor();
 signals:
@@ -37,11 +37,12 @@ private slots:
     void display_slot_row(Xbox_info state_row);
 
 
-    void on_horizontalSlider_valueChanged(float value);
+    void hs1valuechanged(float value);
     void on_horizontalSlider_valueChanged( );
 
-    void on_horizontalSlider_2_valueChanged(float value);
-    void on_horizontalSlider_3_valueChanged(float value);
+    void hs2valuechanged(float value);
+    void hs3valuechanged(float value);
     void on_pbnCP_clicked();
+    void on_pb_endexam_clicked();
 };
 #endif // MAINWINDOW_H

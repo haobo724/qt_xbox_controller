@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/arrows">
         <file>icons/caret-down.svg</file>
         <file>icons/caret-up.svg</file>
     </qresource>

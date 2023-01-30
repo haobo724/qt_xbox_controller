@@ -1,6 +1,15 @@
 #include "gamepad_thread.h"
+#include <QDebug>
+
+Gamepad_Thread::~Gamepad_Thread(){
+
+   //requestInterruption();
+   //quit();
+
+       //  wait();
 
 
+}
 int Gamepad_Thread::GetPort()
 {
     return cId + 1;
@@ -86,7 +95,7 @@ void Gamepad_Thread::run()
 {
     bool wasConnected = true;
 
-    while (true)
+    while (!isInterruptionRequested())
     {
         Sleep(100);
 

@@ -29,8 +29,10 @@ private:
     float deadzoneY;
 
 public:
-    explicit Gamepad_Thread() : deadzoneX(0.08f), deadzoneY(0.08f) {}
-    Gamepad_Thread(float dzX, float dzY) : deadzoneX(dzX), deadzoneY(dzY) {}
+    explicit Gamepad_Thread() : deadzoneX(0.08f), deadzoneY(0.08f) {};
+
+    Gamepad_Thread(float dzX, float dzY) : deadzoneX(dzX), deadzoneY(dzY) {};
+    ~Gamepad_Thread();
     float leftStickX;
     float leftStickY;
     float rightStickX;
